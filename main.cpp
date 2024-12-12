@@ -140,14 +140,18 @@ int main()
         case 8: // Play surah in playlist
             Manager1.GetByName(ReadString("Enter the playlist name: ")).GetByName(ReadString("Enter the shurah name: ")).PlaySurah();
             break;
-            /* case 9: // Save to file
-                 SaveToFile(Manager1, ReadString("Enter the file name: "));
-                 break;
-             case 10: // Get from file
-                 LoadFromFile(Manager1, ReadString("Enter the file name: "));
-                 break;*/
+        /*
+        case 9: // Save to file
+            SaveToFile(Manager1, ReadString("Enter the file name: "));
+            break;
+        case 10: // Get from file
+            LoadFromFile(Manager1, ReadString("Enter the file name: "));
+            break;
+        */
         case 11: // Remove a playlist
             Manager1.DeleteIndex(ReadNumberInRange(1, Manager1.GetNumOfLists(), "Enter playlist number: "));
+            system("cls");
+            cout << "Playlist has been removed.\n";
             break;
         default:
             break;
