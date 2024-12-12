@@ -251,22 +251,21 @@ int Playlist::GetNumOfLists() { return NumOfSurahs; }
 
 Surah Playlist::GetByName(string name)
 {
-    if (IsEmpty()) // Checks if the list is empty
+    if (IsEmpty())
     {
-        cout << "There is no data in the list!!\n";
+        cout << "The playlist is empty!\n";
+        return Surah();
     }
-    else
+    PLnode *Current = head;
+    while (Current != nullptr)
     {
-        PLnode *Current = head;
-        while (Current != nullptr)
+        if (Current->Data.GetName() == name)
         {
-            if (Current->Data.GetName() == name)
-            {
-                return Current->Data;
-            }
-            Current = Current->next;
+            cout << "Surah " << name << " found in playlist " << PlaylistName << endl;
+            return Current->Data;
         }
-        cout << "There is no playlist with the name you entered!!\n";
+        Current = Current->next;
     }
+    cout << "Surah " << name << " not found in playlist " << PlaylistName << endl;
     return Surah();
 }

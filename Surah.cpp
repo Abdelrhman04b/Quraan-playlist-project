@@ -26,18 +26,9 @@ public:
         type = SurahType;
         path = SurahPath;
     }
-    const void PrintName()
-    {
-        cout << "The name of the surah: " << name << endl;
-    }
-    const void PrintType()
-    {
-        cout << "The type of the surah: " << type << endl;
-    }
-    const void PrintPath()
-    {
-        cout << "The path of the surah: " << path << endl;
-    }
+    const void PrintName() { cout << "The name of the surah: " << name << endl; }
+    const void PrintType() { cout << "The type of the surah: " << type << endl; }
+    const void PrintPath() { cout << "The path of the surah: " << path << endl; }
     const void PlaySurah()
     {
         PrintName();
@@ -53,5 +44,7 @@ public:
         path = SurahPath;
     }
     string GetName() { return name; }
+    string GetType() { return type; }
+    string GetPath() { return path; }
     ~Surah() {};
 };

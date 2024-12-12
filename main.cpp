@@ -10,6 +10,31 @@
 using namespace std;
 #pragma comment(lib, "winmm.lib")
 
+/*
+void SaveToFile(PlaylistManager &Manager, const string &FileName)
+{
+    ofstream outFile(FileName);
+    if (!outFile)
+    {
+        cout << "Error opening file for writing.\n";
+        return;
+    }
+    Manager.SaveToFile(outFile); // Call SaveToFile method
+    outFile.close();
+}
+
+void LoadFromFile(PlaylistManager &Manager, const string &FileName)
+{
+    ifstream inFile(FileName);
+    if (!inFile)
+    {
+        cout << "Error opening file for reading.\n";
+        return;
+    }
+    Manager.LoadFromFile(inFile); // Call LoadFromFile method
+    inFile.close();
+}
+*/
 void DisplayPlaylistsShurahs(PlaylistManager &Manager)
 {
     for (int i = 1; i <= Manager.GetNumOfLists(); i++)
@@ -72,8 +97,6 @@ int main()
     PlaylistManager Manager1;
     Playlist playlist1;
     Surah surah;
-    surah.SetData("Al-Fatiha", "Makkah", "Al-Fatiha.wav");
-    surah.PlaySurah();
     int Index;
     int Choice;
     do
@@ -89,7 +112,7 @@ int main()
             break;
         case 2: // Add surah to playlist
             surah.SetData(ReadString("Enter surah name: "), ReadString("Enter surah type: "), ReadString("Enter surah path: "));
-            Manager1.GetIndex(ReadNumberInRange(1, Manager1.GetNumOfLists(), "Enter playlist number: ")).InsertBegin(surah);
+            Manager1.GetByName(ReadString("Enter the playlist name: ")).InsertBegin(surah);
             system("cls");
             cout << "Shurah has been added.\n";
             break;
@@ -115,14 +138,14 @@ int main()
             Manager1.GetByName(ReadString("Enter the playlist name: ")).Display();
             break;
         case 8: // Play surah in playlist
-            Manager1.GetByName(ReadString("Enter the playlist name: ")).GetByName("Enter the shurah name: ").PlaySurah();
+            Manager1.GetByName(ReadString("Enter the playlist name: ")).GetByName(ReadString("Enter the shurah name: ")).PlaySurah();
             break;
-        case 9: // Save to file
-
-            break;
-        case 10: // Get from file
-
-            break;
+            /* case 9: // Save to file
+                 SaveToFile(Manager1, ReadString("Enter the file name: "));
+                 break;
+             case 10: // Get from file
+                 LoadFromFile(Manager1, ReadString("Enter the file name: "));
+                 break;*/
         case 11: // Remove a playlist
             Manager1.DeleteIndex(ReadNumberInRange(1, Manager1.GetNumOfLists(), "Enter playlist number: "));
             break;

@@ -54,7 +54,11 @@ public:
     // 12.Display Index
     string DisplayIndex(int Index);
     // 13.Get name playlist
-    Playlist GetByName(string name);
+    Playlist &GetByName(string name);
+    // 14.Save to file
+    // void SaveToFile(ofstream &FileName);
+    // 15.Load from a file
+    //   void LoadFromFile(ifstream &FileName);
 };
 
 // Constructor
@@ -313,11 +317,13 @@ string PlaylistManager::DisplayIndex(int Index)
     return 0;
 }
 
-Playlist PlaylistManager::GetByName(string name)
+Playlist &PlaylistManager::GetByName(string name)
 {
     if (IsEmpty()) // Checks if the list is empty
     {
         cout << "There is no data in the list!!\n";
+        static PLMnode defaultPLMnode;
+        return defaultPLMnode.Data;
     }
     else
     {
@@ -332,5 +338,83 @@ Playlist PlaylistManager::GetByName(string name)
         }
         cout << "There is no playlist with the name you entered!!\n";
     }
-    return Playlist();
+    static PLMnode defaultPLMnode;
+    return defaultPLMnode.Data;
 }
+
+/*
+void PlaylistManager::SaveToFile(ofstream &FileName)
+{
+
+    if (IsEmpty())
+    {
+        cout << "There are no playlists to save.\n";
+        return;
+    }
+
+    PLMnode *Current = head;
+    while (Current != nullptr)
+    {
+        // Save playlist name
+        FileName << Current->Data.GetName() << endl;
+
+        // Save the number of Surahs in the playlist
+        FileName << Current->Data.GetNumOfLists() << endl;
+
+        // Save each Surah's details
+        for (int i = 1; i <= Current->Data.GetNumOfLists(); i++)
+        {
+            Surah s = Current->Data.GetIndex(i);
+            FileName << s.GetName() << endl;
+            FileName << s.GetType() << endl;
+            FileName << s.GetPath() << endl;
+        }
+
+        Current = Current->next;
+    }
+
+    cout << "Playlists have been saved successfully.\n";
+
+}
+
+void PlaylistManager::LoadFromFile(ifstream &FileName)
+{
+     if (!FileName)
+     {
+         cout << "Error opening file for reading.\n";
+         return;
+     }
+
+     while (!FileName.eof())
+     {
+         string playlistName;
+         getline(FileName, playlistName);
+
+         if (playlistName.empty())
+             break; // Exit loop if the end of the file is reached or line is empty
+
+         Playlist newPlaylist;
+         newPlaylist.SetName(playlistName);
+
+         int numOfSurahs;
+         FileName >> numOfSurahs;
+         FileName.ignore(); // To handle the newline character after the integer
+
+         for (int i = 0; i < numOfSurahs; i++)
+         {
+             string surahName, surahType, surahPath;
+             getline(FileName, surahName);
+             getline(FileName, surahType);
+             getline(FileName, surahPath);
+
+             Surah s;
+             s.SetData(surahName, surahType, surahPath);
+             newPlaylist.InsertEnd(s);
+         }
+
+         InsertEnd(newPlaylist);
+     }
+
+     cout << "Playlists have been loaded successfully.\n";
+
+}*/
